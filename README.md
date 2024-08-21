@@ -1,1 +1,3 @@
-# 2024-FASE6-BSI2022-2022010580
+# Desenvolvimento Web II
+
+Repositório destinado para as aulas Desenvolvimento Web II do curso Sistemas de Informação.
