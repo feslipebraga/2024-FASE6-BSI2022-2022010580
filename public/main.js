@@ -3,14 +3,13 @@ const mainForm = document.querySelector('form')
 void async function () {
   const response = await fetch('/users')
   const users = await response.json()
-  users.forEach(user => {
-    const newForm = mainForm.cloneNode(true)
-    newForm.name.value = user.name
-    newForm.email.value = user.email
-    newForm.dataset.id = user.id
-    newForm.id.readOnly = true
-    mainForm.before(newForm)
-  })
+    users.forEach(user => {
+      const newForm = mainForm.cloneNode(true)
+      newForm.name.value = user.name
+      newForm.email.value = user.email
+      newForm.dataset.id = user.id
+      mainForm.before(newForm)
+    })
   console.log(users)
 }()
 
@@ -37,13 +36,11 @@ document.addEventListener('submit', async (event) => {
     const headers = { 'Content-Type': 'application/json' }
     const name = currentForm.name.value
     const email = currentForm.email.value
-    const body = JSON.stringify({ name, email })
+    const password = currentForm.password.value
+    const body = JSON.stringify({ name, email, password })
     const response = await fetch(url, { method, headers, body, })
     if (!response.ok)
       return console.error('Error:', response.statusText)
-    const responseData = await response.json()
-    currentForm.name.value = responseData.name
-    currentForm.email.value = responseData.email
     return
   }
   
@@ -53,7 +50,8 @@ document.addEventListener('submit', async (event) => {
     const headers = { 'Content-Type': 'application/json' }
     const name = currentForm.name.value
     const email = currentForm.email.value
-    const body = JSON.stringify({ name, email })
+    const password = currentForm.password.value
+    const body = JSON.stringify({ name, email, password })
     const response = await fetch(url, { method, headers, body })
     if (!response.ok)
       return console.error('Error:', response.statusText)
@@ -62,7 +60,6 @@ document.addEventListener('submit', async (event) => {
     newForm.name.value = responseData.name
     newForm.email.value = responseData.email
     newForm.dataset.id = responseData.id
-    newForm.id.readOnly = true
     mainForm.reset()
     mainForm.before(newForm)
     return
